@@ -24,7 +24,7 @@ public class Timer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        timeCountSettingLV = (LinearLayout) findViewById(R.id.timeCountSettingLV);
+        /*timeCountSettingLV = (LinearLayout) findViewById(R.id.timeCountSettingLV);
         timeCountLV = (LinearLayout) findViewById(R.id.timeCountLV);
 
         hourET = (EditText)findViewById(R.id.hourET);
@@ -105,7 +105,7 @@ public class Timer extends AppCompatActivity {
 
                 timer.schedule(timerTask,0,1000);
             }
-        });
+        });*/
     }
 
 }

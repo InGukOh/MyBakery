@@ -23,7 +23,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this,)
+        Intent Setting_Btn_Active = new Intent(this,Setting.class);
+        Button Setting = (Button) findViewById(R.id.Setting);
+        Setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(Setting_Btn_Active);
+            }
+        });
 
 
     }
