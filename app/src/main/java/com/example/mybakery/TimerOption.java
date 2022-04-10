@@ -26,6 +26,12 @@ public class TimerOption extends AppCompatActivity {
     LinearLayout add_Timer_Layout;
     EditText sch;
 
+    public int saveDATA(int count){
+        SharedPreferences sp = getSharedPreferences("shared", MODE_PRIVATE);
+        count = sp.getInt("count",sum);;
+        return count;
+    }
+
     public void onSaveData(View v){
         a = 1;
         if(sum+a > 8){
@@ -36,17 +42,18 @@ public class TimerOption extends AppCompatActivity {
             SharedPreferences sp = getSharedPreferences("shared", MODE_PRIVATE);
             SharedPreferences.Editor editor = sp.edit();
             for (int i = 0; i <= sum; i++) {
-                editor.putInt("num" + i, sum);
+                editor.putInt("count", sum);
                 editor.putString("schedule" + i, "asdasd" + sum);
                 editor.putInt("time" + i, 20);
                 editor.commit(); //완료한다.
 
+                int count = sp.getInt("count",sum);
                 String schedule = sp.getString("schedule" + i, "");
                 int time = sp.getInt("time" + i, 0);
 
 
                 TextView tvData = (TextView) findViewById(R.id.tv_data);
-                tvData.setText(schedule + time);
+                tvData.setText(count + schedule + time);
             }
         }
 
@@ -73,11 +80,12 @@ public class TimerOption extends AppCompatActivity {
 
         SharedPreferences sp = getSharedPreferences("shared", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        int ScheduleCountC = 1;
 
         add_Timer_Layout = (LinearLayout) findViewById(R.id.add_Timer_Layout);
 
-
+        editor.putInt("count" , sum);
+        int SD = sum;
+        Toast.makeText(getApplicationContext(), " "+ SD +" ", Toast.LENGTH_SHORT).show();
         for(int i = 0; i <= sum; i++){
             String schedule = sp.getString("schedule"+i, "");
             int ScheduleCount = sp.getInt("time"+i,0);
