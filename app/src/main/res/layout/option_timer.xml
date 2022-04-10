@@ -1,44 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/add_Btn_Layout"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        android:paddingHorizontal="40dp"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="@+id/add_Timer_Layout"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:background="#84acd1"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:textColor="#FFFFFF"
+        android:text="저장할 자료"/>
 
-        <Button
-            android:id="@+id/add_Btn"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="추가" />
-    </LinearLayout>
+    <EditText
+        android:id="@+id/edt_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"/>
 
-    <LinearLayout
-        android:id="@+id/add_Timer_Layout"
-        android:layout_width="0dp"
-        android:layout_height="500dp"
-        android:layout_marginTop="100dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <Button
+        android:id="@+id/btn_save"
+        android:text="자료 저장"
+        android:onClick="onSaveData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#84acd1"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:textColor="#FFFFFF"
+        android:text="저장 갯수"/>
 
-    <!--<Button
-            android:id="@+id/del_Timer"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="삭제"/>-->
+    <TextView
+        android:id="@+id/tv_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"/>
 
+    <Button
+        android:id="@+id/btn_search"
+        android:text="자료 불러오기"
+        android:onClick="onSearchData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

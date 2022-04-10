@@ -1,95 +1,102 @@
 package com.example.mybakery;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
 
-import android.app.Activity;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import android.view.Gravity;
 import android.view.View;
+
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class TimerOption extends AppCompatActivity {
-    Button add_Btn;
-    LinearLayout add_Timer_Layout;
+    int a;
+    int sum ;
 
-    int BtnCount = 0;
+    LinearLayout add_Timer_Layout;
+    EditText sch;
+
+    public void onSaveData(View v){
+        a = 1;
+        if(sum+a > 8){
+            Toast.makeText(getApplicationContext(), "더 이상 만들 수 없음", Toast.LENGTH_SHORT).show();
+        } else {
+            sum += a;
+            Toast.makeText(getApplicationContext(), " " + sum + " ", Toast.LENGTH_SHORT).show();
+            SharedPreferences sp = getSharedPreferences("shared", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            for (int i = 0; i <= sum; i++) {
+                editor.putInt("num" + i, sum);
+                editor.putString("schedule" + i, "asdasd" + sum);
+                editor.putInt("time" + i, 20);
+                editor.commit(); //완료한다.
+
+                String schedule = sp.getString("schedule" + i, "");
+                int time = sp.getInt("time" + i, 0);
+
+
+                TextView tvData = (TextView) findViewById(R.id.tv_data);
+                tvData.setText(schedule + time);
+            }
+        }
+
+
+    }
+
+
+    public void onDeleteData(View v){
+        SharedPreferences sp = getSharedPreferences("shared", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        sum = 0;
+        editor.clear();
+        editor.commit();
+        String schedule = sp.getString("schedule", "");
+        int time = sp.getInt("time",0);
+        TextView tvData = (TextView)findViewById(R.id.tv_data);
+        tvData.setText(schedule + time);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.option_timer);
+        setContentView(R.layout.option_timer_setting);
+
+        SharedPreferences sp = getSharedPreferences("shared", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        int ScheduleCountC = 1;
 
         add_Timer_Layout = (LinearLayout) findViewById(R.id.add_Timer_Layout);
-        Button add_Btn = (Button) findViewById(R.id.add_Btn);
-
-        add_Btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (view.getId()){
-                    case R.id.add_Btn:
-                        BtnCount++;
-                        EditText schedule = new EditText(getApplicationContext());
-                        EditText setTimer = new EditText(getApplicationContext());
-                        Button delThis = new Button(getApplicationContext());
-                        LinearLayout add_Schedule = new LinearLayout(getApplicationContext());
-                        LinearLayout.LayoutParams setWH = new LinearLayout.LayoutParams(5000,4000);
-                        LinearLayout.LayoutParams Input_Schedule =
-                                new LinearLayout.LayoutParams(500, 200);
-                        LinearLayout.LayoutParams InPut_Timer =
-                                new LinearLayout.LayoutParams(300, 200);
-                        LinearLayout.LayoutParams Del_Btn =
-                                new LinearLayout.LayoutParams(200, 200);
-                        add_Schedule.setLayoutParams(setWH);
-                        schedule.setLayoutParams(Input_Schedule);
-                        setTimer.setLayoutParams(InPut_Timer);
-                        delThis.setLayoutParams(Del_Btn);
-                        schedule.setHint("일정내용");
-                        setTimer.setHint("시간");
-                        delThis.setText("삭제");
-                        delThis.setTextSize(15);
-                        schedule.setId(BtnCount);
-                        setTimer.setId(BtnCount);
-                        delThis.setId(BtnCount);
 
 
-                        add_Timer_Layout.addView(schedule);
-                        add_Timer_Layout.addView(setTimer);
-                        add_Timer_Layout.addView(delThis);
-                        break;
-                }
-            }
-        });
-    }
-    @Override
-    protected void onPause(){
-        super.onPause();
-        saveState();
-    }
+        for(int i = 0; i <= sum; i++){
+            String schedule = sp.getString("schedule"+i, "");
+            int ScheduleCount = sp.getInt("time"+i,0);
 
-    protected  void saveState(){
-        SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putInt("BtnCount", BtnCount);
+            LinearLayout add_Schedule = new LinearLayout(getApplicationContext());
+            add_Schedule.setOrientation(LinearLayout.HORIZONTAL);
+            add_Schedule.setGravity(Gravity.CENTER);
+            LinearLayout.LayoutParams setWH =
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 210);
+            LinearLayout.LayoutParams Input_Schedule =
+                    new LinearLayout.LayoutParams(500, 200);
 
-        editor.commit();
-    }
-    protected void restoreState(){  // 데이터를 복구한다.
-        SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
-        if((pref!=null) && (pref.contains("BtnCount"))){
-            BtnCount = pref.getInt("BtnCount", BtnCount);
+            sch = new EditText(getApplicationContext());
+            add_Schedule.setLayoutParams(setWH);
+            sch.setLayoutParams(Input_Schedule);
+            add_Schedule.addView(sch);
+            TextView tvData = (TextView)findViewById(R.id.tv_data);
+            tvData.setText(schedule + ScheduleCount);
         }
 
-    }
-    protected void clearPref(){  // sharedpreference에 쓰여진 데이터 지우기
-        SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.clear();
-        BtnCount = 0;
-        editor.commit();
     }
 }
