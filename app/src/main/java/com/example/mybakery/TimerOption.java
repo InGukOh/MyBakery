@@ -66,13 +66,13 @@ public class TimerOption extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "타이머를 생성 해주세요", Toast.LENGTH_SHORT).show();
         } else {
             for(int i = 0; i <= SavedData_Length; i++) {
-                String schedule = sp.getString("schedule" + i, "텍스트 표기" + SavedData_Length);
-                int ScheduleCount = sp.getInt("time" + i, 0);
+                String schedule = sp.getString("schedule", "텍스트 표기" + SavedData_Length);
+                int ScheduleCount = sp.getInt("time", 0);
                 TextView tvData = (TextView) findViewById(R.id.tv_data);
                 tvData.setText(SavedData_Length + schedule + ScheduleCount);
-                listView.setAdapter(SD_Adapter);
             }
         }
+        listView.setAdapter(SD_Adapter);
 
     }
 
@@ -97,14 +97,14 @@ public class TimerOption extends AppCompatActivity {
             for (int i = 0; i <= SavedData_Length; i++) {
 
                 editor.putInt("SavedData_Length", SavedData_Length);
-                editor.putString("schedule" + i, "텍스트 표기" + SavedData_Length);
-                editor.putInt("time" + i, SavedData_Length);
+                editor.putString("schedule", "텍스트 표기" + SavedData_Length);
+                editor.putInt("time", SavedData_Length);
                 editor.commit(); //완료한다.
 
 
-                SavedData_Length = sp.getInt("SavedData_Length" + i, SavedData_Length);
-                schedule = sp.getString("schedule" + i, "");
-                time = sp.getInt("time" + i, 0);
+                SavedData_Length = sp.getInt("SavedData_Length", SavedData_Length);
+                schedule = sp.getString("schedule", "");
+                time = sp.getInt("time", 0);
 
                 SD_Index.add(SavedData_Length);
                 Schedule_Index.add(schedule);
