@@ -55,7 +55,7 @@
     <ListView
         android:id="@+id/TimerList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
     </ListView>
     </LinearLayout>
 
@@ -78,7 +78,7 @@
             android:text="저장"/>
         <Button
             android:id="@+id/btn_search"
-            android:text="삭제"
+            android:text="전체 삭제"
             android:onClick="onDeleteData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
